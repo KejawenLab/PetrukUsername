@@ -1,0 +1,22 @@
+{
+    "name": "ad3n/username",
+    "license": "proprietary",
+    "type": "library",
+    "description": "classes to generate unique username like XXXXXXXX0000",
+    "autoload": {
+        "psr-4": {
+            "Ihsan\\": ""
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Ihsan\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">=5.6.17"
+    },
+    "require-dev": {
+        "doctrine/orm": "~2.5"
+    }
+}
