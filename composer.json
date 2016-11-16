@@ -5,7 +5,7 @@
     "description": "classes to generate unique username like XXXXXXXX0000",
     "autoload": {
         "psr-4": {
-            "Ihsan\\": ""
+            "Ihsan\\UsernameGenerator\\": ""
         }
     },
     "require": {
