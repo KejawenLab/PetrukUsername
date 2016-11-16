@@ -8,15 +8,11 @@
             "Ihsan\\": ""
         }
     },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\Ihsan\\": "tests/"
-        }
-    },
     "require": {
         "php": ">=5.6.17"
     },
     "require-dev": {
-        "doctrine/orm": "~2.5"
+        "doctrine/orm": "~2.5",
+        "symfony/symfony": "3.1.*"
     }
 }

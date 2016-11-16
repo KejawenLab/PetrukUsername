@@ -4,7 +4,7 @@ Username
 Author
 ------
 
-**Muhammad Surya Ihsanuddin**<surya.kejawen@gmail>
+**Muhammad Surya Ihsanuddin**[surya.kejawen@gmail]
 
 Description
 -----------
