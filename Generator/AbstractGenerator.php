@@ -2,19 +2,19 @@
 
 namespace Ihsan\UsernameGenerator\Generator;
 
-use Ihsan\UsernameGenerator\Util\UsernameShifter;
+use Ihsan\UsernameGenerator\Util\CharacterShifter;
 
 abstract class AbstractGenerator implements GeneratorInterface
 {
     /**
-     * @var UsernameShifter
+     * @var CharacterShifter
      */
     protected $shifter;
 
     /**
-     * @param UsernameShifter $shifter
+     * @param CharacterShifter $shifter
      */
-    public function __construct(UsernameShifter $shifter)
+    public function __construct(CharacterShifter $shifter)
     {
         $this->shifter = $shifter;
     }

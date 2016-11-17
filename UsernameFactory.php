@@ -11,7 +11,7 @@ use Ihsan\UsernameGenerator\Repository\UsernameInterface;
 use Ihsan\UsernameGenerator\Repository\UsernameRepositoryInterface;
 use Ihsan\UsernameGenerator\Util\DateGenerator;
 use Ihsan\UsernameGenerator\Util\UniqueNumberGenerator;
-use Ihsan\UsernameGenerator\Util\UsernameShifter;
+use Ihsan\UsernameGenerator\Util\CharacterShifter;
 
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
@@ -24,7 +24,7 @@ class UsernameFactory
     private $repository;
 
     /**
-     * @var UsernameShifter
+     * @var CharacterShifter
      */
     private $shifter;
 
@@ -50,10 +50,10 @@ class UsernameFactory
 
     /**
      * @param UsernameRepositoryInterface $usernameRepository
-     * @param UsernameShifter             $shifter
+     * @param CharacterShifter             $shifter
      * @param string                      $usernameClass
      */
-    public function __construct(UsernameRepositoryInterface $usernameRepository, UsernameShifter $shifter, $usernameClass)
+    public function __construct(UsernameRepositoryInterface $usernameRepository, CharacterShifter $shifter, $usernameClass)
     {
         $this->repository = $usernameRepository;
         $this->shifter = $shifter;

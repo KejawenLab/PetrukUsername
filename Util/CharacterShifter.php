@@ -5,7 +5,7 @@ namespace Ihsan\UsernameGenerator\Util;
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-class UsernameShifter
+class CharacterShifter
 {
     /**
      * @param string $username
