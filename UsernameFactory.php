@@ -50,7 +50,7 @@ class UsernameFactory
 
     /**
      * @param UsernameRepositoryInterface $usernameRepository
-     * @param CharacterShifter             $shifter
+     * @param CharacterShifter            $shifter
      * @param string                      $usernameClass
      */
     public function __construct(UsernameRepositoryInterface $usernameRepository, CharacterShifter $shifter, $usernameClass)
@@ -101,56 +101,8 @@ class UsernameFactory
             $characters = array_merge($characters, $genericGenerator->genarate($fullName, $characterLimit));
         }
 
-        $dates = DateGenerator::generate($birthday);
-
-        $this->characters = $characters;
-        $this->dates = $dates;
-
-        $realUsername = null;
-        foreach ($characters as $character) {
-            foreach ($dates as $date) {
-                $username = sprintf('%s%s', $character, $date);
-                if (!$this->repository->isExist($username) && $maxUsernamePerPrefix >= $this->repository->countUsage($character)) {
-                    $realUsername = $username;
-
-                    break;
-                } else {
-                    ++$this->hit;
-                }
-            }
-
-            if ($realUsername) {
-                break;
-            }
-        }
-
-        if (!$realUsername) {
-            foreach ($characters as $character) {
-                $flag = true;
-                while ($flag) {
-                    $username = sprintf('%s%s', $character, UniqueNumberGenerator::generate());
-                    if (!$this->repository->isExist($username) && $maxUsernamePerPrefix >= $this->repository->countUsage($character)) {
-                        $realUsername = $username;
-
-                        $flag = false;
-                    } else {
-                        ++$this->hit;
-                    }
-                }
-
-                if (!$flag) {
-                    break;
-                }
-            }
-        }
-
-        /** @var UsernameInterface $user */
-        $user = new $this->class();
-        $user->setFullName($fullName);
-        $user->setBirthDay($birthday);
-        $user->setUsername($realUsername);
-
-        $this->repository->save($user);
+        $realUsername = $this->getUsername($birthday, $characters, $maxUsernamePerPrefix);
+        $this->save($birthday, $fullName, $realUsername);
 
         return $realUsername;
     }
@@ -209,5 +161,78 @@ class UsernameFactory
     public function getTotalNumber()
     {
         return 10000;
+    }
+
+    /**
+     * @param \DateTime $birthday
+     * @param array$characters
+     * @param int $maxUsernamePerPrefix
+     *
+     * @return string
+     */
+    private function getUsername(\DateTime $birthday, $characters, $maxUsernamePerPrefix)
+    {
+        $dates = DateGenerator::generate($birthday);
+
+        $this->characters = $characters;
+        $this->dates = $dates;
+
+        $realUsername = null;
+        foreach ($characters as $character) {
+            foreach ($dates as $date) {
+                $username = sprintf('%s%s', $character, $date);
+                if (!$this->repository->isExist($username) && $maxUsernamePerPrefix >= $this->repository->countUsage($character)) {
+                    $realUsername = $username;
+
+                    break;
+                } else {
+                    ++$this->hit;
+                }
+            }
+
+            if ($realUsername) {
+                break;
+            }
+        }
+
+        if (!$realUsername) {
+            foreach ($characters as $character) {
+                $flag = true;
+                while ($flag) {
+                    $username = sprintf('%s%s', $character, UniqueNumberGenerator::generate());
+                    if (!$this->repository->isExist($username) && $maxUsernamePerPrefix >= $this->repository->countUsage($character)) {
+                        $realUsername = $username;
+
+                        $flag = false;
+                    } else {
+                        ++$this->hit;
+                    }
+                }
+
+                if (!$flag) {
+                    break;
+                }
+            }
+
+            return $realUsername;
+        }
+
+        return $realUsername;
+    }
+
+    /**
+     * @param string    $fullName
+     * @param \DateTime $birthday
+     * @param string    $username
+     */
+    private function save(\DateTime $birthday, $fullName, $username)
+    {
+        /** @var UsernameInterface $user */
+        $user = new $this->class();
+        $user->setFullName($fullName);
+        $user->setBirthDay($birthday);
+        $user->setUsername($username);
+
+        $this->repository->save($user);
     }
 }
