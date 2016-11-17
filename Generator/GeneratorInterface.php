@@ -7,5 +7,5 @@ namespace Ihsan\UsernameGenerator\Generator;
  */
 interface GeneratorInterface
 {
-    public function genarate($fullName);
+    public function generate($fullName);
 }

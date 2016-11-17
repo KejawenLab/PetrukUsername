@@ -13,7 +13,7 @@ class GenericUsernameGenerator extends AbstractGenerator
      *
      * @return array
      */
-    public function genarate($fullName, $limit = 8)
+    public function generate($fullName, $limit = 8)
     {
         $original = str_replace(' ', '', $fullName);
         if ($limit > strlen($original)) {

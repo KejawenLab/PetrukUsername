@@ -76,7 +76,7 @@ class UsernameFactory
 
         if ($characterLimit > strlen($fullName)) {
             $shortGenerator = new ShortUsernameGenerator($this->shifter);
-            $characters = array_merge($characters, $shortGenerator->genarate($fullName, $characterLimit));
+            $characters = array_merge($characters, $shortGenerator->generate($fullName, $characterLimit));
 
             $isShort = true;
         }
@@ -84,21 +84,21 @@ class UsernameFactory
         if (!$isShort) {
             $balineseGenerator = new BalineseUsernameGenerator($this->shifter);
             if (-1 !== $balineseGenerator->isReservedName($fullName)) {
-                $characters = array_merge($characters, $balineseGenerator->genarate($fullName, $characterLimit));
+                $characters = array_merge($characters, $balineseGenerator->generate($fullName, $characterLimit));
             }
 
             $islamicGenerator = new IslamicUsernameGenerator($this->shifter);
             if (-1 !== $islamicGenerator->isReservedName($fullName)) {
-                $characters = array_merge($characters, $islamicGenerator->genarate($fullName, $characterLimit));
+                $characters = array_merge($characters, $islamicGenerator->generate($fullName, $characterLimit));
             }
 
             $westernGenerator = new WesternUsernameGenerator($this->shifter);
             if (-1 !== $westernGenerator->isReservedName($fullName)) {
-                $characters = array_merge($characters, $westernGenerator->genarate($fullName, $characterLimit));
+                $characters = array_merge($characters, $westernGenerator->generate($fullName, $characterLimit));
             }
 
             $genericGenerator = new GenericUsernameGenerator($this->shifter);
-            $characters = array_merge($characters, $genericGenerator->genarate($fullName, $characterLimit));
+            $characters = array_merge($characters, $genericGenerator->generate($fullName, $characterLimit));
         }
 
         $realUsername = $this->getUsername($birthday, $characters, $maxUsernamePerPrefix);
