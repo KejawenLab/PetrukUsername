@@ -55,7 +55,7 @@ class BalineseUsernameGenerator extends AbstractGenerator
     /**
      * @param string $fullName
      *
-     * @return bool
+     * @return int
      */
     public function isReservedName($fullName)
     {
