@@ -34,6 +34,11 @@ class UsernameFactory
     private $class;
 
     /**
+     * @var bool
+     */
+    private $autoSave;
+
+    /**
      * @var array
      */
     private $characters;
@@ -53,11 +58,12 @@ class UsernameFactory
      * @param CharacterShifter            $shifter
      * @param string                      $usernameClass
      */
-    public function __construct(UsernameRepositoryInterface $usernameRepository, CharacterShifter $shifter, $usernameClass)
+    public function __construct(UsernameRepositoryInterface $usernameRepository, CharacterShifter $shifter, $usernameClass, $autoSave = false)
     {
         $this->repository = $usernameRepository;
         $this->shifter = $shifter;
         $this->class = $usernameClass;
+        $this->autoSave = $autoSave;
     }
 
     /**
@@ -82,27 +88,14 @@ class UsernameFactory
         }
 
         if (!$isShort) {
-            $balineseGenerator = new BalineseUsernameGenerator($this->shifter);
-            if (-1 !== $balineseGenerator->isReservedName($fullName)) {
-                $characters = array_merge($characters, $balineseGenerator->generate($fullName, $characterLimit));
-            }
-
-            $islamicGenerator = new IslamicUsernameGenerator($this->shifter);
-            if (-1 !== $islamicGenerator->isReservedName($fullName)) {
-                $characters = array_merge($characters, $islamicGenerator->generate($fullName, $characterLimit));
-            }
-
-            $westernGenerator = new WesternUsernameGenerator($this->shifter);
-            if (-1 !== $westernGenerator->isReservedName($fullName)) {
-                $characters = array_merge($characters, $westernGenerator->generate($fullName, $characterLimit));
-            }
-
-            $genericGenerator = new GenericUsernameGenerator($this->shifter);
-            $characters = array_merge($characters, $genericGenerator->generate($fullName, $characterLimit));
+            $characters = $this->doGenerate($fullName, $characterLimit, $characters);
         }
 
         $realUsername = $this->getUsername($birthday, $characters, $maxUsernamePerPrefix);
-        $this->save($birthday, $fullName, $realUsername);
+
+        if ($this->autoSave) {
+            $this->save($birthday, $fullName, $realUsername);
+        }
 
         return $realUsername;
     }
@@ -234,5 +227,35 @@ class UsernameFactory
         $user->setUsername($username);
 
         $this->repository->save($user);
+    }
+
+    /**
+     * @param string $fullName
+     * @param int $characterLimit
+     * @param array $characters
+     * 
+     * @return array
+     */
+    private function doGenerate($fullName, $characterLimit, $characters)
+    {
+        $balineseGenerator = new BalineseUsernameGenerator($this->shifter);
+        if (-1 !== $balineseGenerator->isReservedName($fullName)) {
+            $characters = array_merge($characters, $balineseGenerator->generate($fullName, $characterLimit));
+        }
+
+        $islamicGenerator = new IslamicUsernameGenerator($this->shifter);
+        if (-1 !== $islamicGenerator->isReservedName($fullName)) {
+            $characters = array_merge($characters, $islamicGenerator->generate($fullName, $characterLimit));
+        }
+
+        $westernGenerator = new WesternUsernameGenerator($this->shifter);
+        if (-1 !== $westernGenerator->isReservedName($fullName)) {
+            $characters = array_merge($characters, $westernGenerator->generate($fullName, $characterLimit));
+        }
+
+        $genericGenerator = new GenericUsernameGenerator($this->shifter);
+        $characters = array_merge($characters, $genericGenerator->generate($fullName, $characterLimit));
+
+        return $characters;
     }
 }
