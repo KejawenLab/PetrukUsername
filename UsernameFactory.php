@@ -233,7 +233,7 @@ class UsernameFactory
      * @param string $fullName
      * @param int $characterLimit
      * @param array $characters
-     * 
+     *
      * @return array
      */
     private function doGenerate($fullName, $characterLimit, $characters)
