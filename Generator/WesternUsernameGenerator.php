@@ -13,6 +13,7 @@ class WesternUsernameGenerator extends AbstractGenerator
         'MIKE' => 'MIK',
         'MICHAEL' => 'MIC',
         'JON' => 'JON',
+        'JOHN' => 'JHN',
         'JONATHAN' => 'JON',
         'DAVID' => 'DAV',
         'DAVE' => 'DAV',

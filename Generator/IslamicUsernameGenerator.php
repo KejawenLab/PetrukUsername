@@ -33,6 +33,15 @@ class IslamicUsernameGenerator extends AbstractGenerator
         'SITI' => 'SIT',
         'NUR' => 'NUR',
         'ABDUL' => 'ABD',
+        'ABDOEL' => 'ABD',
+        'ABDURRAHMAN' => 'ABD',
+        'ABDULLAH' => 'ABD',
+        'RIZAL' => 'RZL',
+        'RIZKI' => 'RZL',
+        'RIZQI' => 'RIZ',
+        'RIEZQI' => 'RIZ',
+        'REZKI' => 'RIZ',
+        'RESKI' => 'RIZ',
     );
 
     /**
