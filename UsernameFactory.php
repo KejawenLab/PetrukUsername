@@ -11,7 +11,6 @@ use Ihsan\UsernameGenerator\Repository\UsernameInterface;
 use Ihsan\UsernameGenerator\Repository\UsernameRepositoryInterface;
 use Ihsan\UsernameGenerator\Util\DateGenerator;
 use Ihsan\UsernameGenerator\Util\UniqueNumberGenerator;
-use Ihsan\UsernameGenerator\Util\CharacterShifter;
 
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
@@ -22,11 +21,6 @@ class UsernameFactory
      * @var UsernameRepositoryInterface
      */
     private $repository;
-
-    /**
-     * @var CharacterShifter
-     */
-    private $shifter;
 
     /**
      * @var string
@@ -55,13 +49,12 @@ class UsernameFactory
 
     /**
      * @param UsernameRepositoryInterface $usernameRepository
-     * @param CharacterShifter            $shifter
      * @param string                      $usernameClass
+     * @param bool                        $autoSave
      */
-    public function __construct(UsernameRepositoryInterface $usernameRepository, CharacterShifter $shifter, $usernameClass, $autoSave = false)
+    public function __construct(UsernameRepositoryInterface $usernameRepository, $usernameClass, $autoSave = false)
     {
         $this->repository = $usernameRepository;
-        $this->shifter = $shifter;
         $this->class = $usernameClass;
         $this->autoSave = $autoSave;
     }
@@ -81,7 +74,7 @@ class UsernameFactory
         $isShort = false;
 
         if ($characterLimit > strlen($fullName)) {
-            $shortGenerator = new ShortUsernameGenerator($this->shifter);
+            $shortGenerator = new ShortUsernameGenerator();
             $characters = array_merge($characters, $shortGenerator->generate($fullName, $characterLimit));
 
             $isShort = true;
@@ -231,29 +224,29 @@ class UsernameFactory
 
     /**
      * @param string $fullName
-     * @param int $characterLimit
-     * @param array $characters
+     * @param int    $characterLimit
+     * @param array  $characters
      *
      * @return array
      */
-    private function doGenerate($fullName, $characterLimit, $characters)
+    private function doGenerate($fullName, $characterLimit, array $characters = array())
     {
-        $balineseGenerator = new BalineseUsernameGenerator($this->shifter);
+        $balineseGenerator = new BalineseUsernameGenerator();
         if (-1 !== $balineseGenerator->isReservedName($fullName)) {
             $characters = array_merge($characters, $balineseGenerator->generate($fullName, $characterLimit));
         }
 
-        $islamicGenerator = new IslamicUsernameGenerator($this->shifter);
+        $islamicGenerator = new IslamicUsernameGenerator();
         if (-1 !== $islamicGenerator->isReservedName($fullName)) {
             $characters = array_merge($characters, $islamicGenerator->generate($fullName, $characterLimit));
         }
 
-        $westernGenerator = new WesternUsernameGenerator($this->shifter);
+        $westernGenerator = new WesternUsernameGenerator();
         if (-1 !== $westernGenerator->isReservedName($fullName)) {
             $characters = array_merge($characters, $westernGenerator->generate($fullName, $characterLimit));
         }
 
-        $genericGenerator = new GenericUsernameGenerator($this->shifter);
+        $genericGenerator = new GenericUsernameGenerator();
         $characters = array_merge($characters, $genericGenerator->generate($fullName, $characterLimit));
 
         return $characters;

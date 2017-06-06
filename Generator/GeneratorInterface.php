@@ -7,5 +7,11 @@ namespace Ihsan\UsernameGenerator\Generator;
  */
 interface GeneratorInterface
 {
-    public function generate($fullName);
+    /**
+     * @param string $fullName
+     * @param int    $limit
+     *
+     * @return array
+     */
+    public function generate($fullName, $limit = 8);
 }

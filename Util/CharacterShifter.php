@@ -14,14 +14,14 @@ class CharacterShifter
      *
      * @return array
      */
-    public function shift($username, $base, $limit = 8)
+    public static function shift($username, $base, $limit = 8)
     {
         if ($username === $base && $limit < strlen($base)) {
             $base = substr($base, 0, $limit);
         }
 
         $list = array();
-        $replacement = $this->replace($username, $base);
+        $replacement = self::replace($username, $base);
         $length = strlen($base);
 
         for ($i = 0; $i <= $length; ++$i) {
@@ -37,7 +37,7 @@ class CharacterShifter
      *
      * @return string
      */
-    public function replace($username, $base)
+    public static function replace($username, $base)
     {
         return preg_replace(sprintf('/%s/', $base), '', $username, 1);
     }
