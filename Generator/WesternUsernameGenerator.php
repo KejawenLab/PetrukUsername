@@ -24,6 +24,12 @@ class WesternUsernameGenerator extends AbstractGenerator
         'ROB' => 'ROB',
         'ROBERT' => 'ROB',
         'ANNE' => 'ANN',
+        'AGNES' => 'AGN',
+        'CHRIS' => 'CHR',
+        'CHRISTINE' => 'CHR',
+        'MARIA' => 'MAR',
+        'PETER' => 'PET',
+        'ALBERT' => 'ALB',
     );
 
     /**
