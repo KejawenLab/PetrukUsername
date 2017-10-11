@@ -5,7 +5,7 @@ namespace KejawenLab\Library\PetrukUsername\Generator;
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-final class ShortPetrukUsername extends AbstractGenerator
+final class ShortUsernameGenerator extends AbstractGenerator
 {
     /**
      * @param string $fullName

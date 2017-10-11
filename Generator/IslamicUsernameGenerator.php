@@ -5,7 +5,7 @@ namespace KejawenLab\Library\PetrukUsername\Generator;
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-final class IslamicPetrukUsername extends AbstractGenerator
+final class IslamicUsernameGenerator extends AbstractGenerator
 {
     private $reservedNames = array(
         'MUHAMMAD' => 'MUH',

@@ -5,7 +5,7 @@ namespace KejawenLab\Library\PetrukUsername\Generator;
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-final class WesternPetrukUsername extends AbstractGenerator
+final class WesternUsernameGenerator extends AbstractGenerator
 {
     private $reservedNames = array(
         'ALEX' => 'ALE',

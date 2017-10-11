@@ -5,7 +5,7 @@ namespace KejawenLab\Library\PetrukUsername\Generator;
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-final class BalinesePetrukUsername extends AbstractGenerator
+final class BalineseUsernameGenerator extends AbstractGenerator
 {
     private $reservedNames = array(
         'PUTU' => 'PU',
