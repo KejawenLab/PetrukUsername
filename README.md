@@ -1,10 +1,10 @@
-Username
+Petruk Username
 ========
 
 Author
 ------
 
-**Muhammad Surya Ihsanuddin**[surya.kejawen@gmail]
+**Muhammad Surya Iksanudin**[surya.kejawen@gmail]
 
 Description
 -----------
