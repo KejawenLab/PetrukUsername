@@ -1,11 +1,18 @@
 {
-    "name": "ad3n/username",
-    "license": "proprietary",
+    "name": "kejawenlab/petruk-username",
+    "license": "MIT",
     "type": "library",
     "description": "classes to generate unique username like XXXXXXXX0000",
+    "authors": [
+        {
+            "name": "Muhammad Surya Iksanudin",
+            "email": "surya.kejawen@gmail.com",
+            "homepage": "https://github.com/ad3n"
+        }
+    ],
     "autoload": {
         "psr-4": {
-            "Ihsan\\UsernameGenerator\\": ""
+            "KejawenLab\\Library\\PetrukUsername\\": ""
         }
     },
     "require": {

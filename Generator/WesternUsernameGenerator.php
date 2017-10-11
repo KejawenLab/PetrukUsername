@@ -1,11 +1,11 @@
 <?php
 
-namespace Ihsan\UsernameGenerator\Generator;
+namespace KejawenLab\Library\PetrukUsername\Generator;
 
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-class WesternUsernameGenerator extends AbstractGenerator
+class WesternPetrukUsername extends AbstractGenerator
 {
     private $reservedNames = array(
         'ALEX' => 'ALE',

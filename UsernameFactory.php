@@ -1,16 +1,16 @@
 <?php
 
-namespace Ihsan\UsernameGenerator;
+namespace KejawenLab\Library\PetrukUsername;
 
-use Ihsan\UsernameGenerator\Generator\BalineseUsernameGenerator;
-use Ihsan\UsernameGenerator\Generator\GenericUsernameGenerator;
-use Ihsan\UsernameGenerator\Generator\IslamicUsernameGenerator;
-use Ihsan\UsernameGenerator\Generator\ShortUsernameGenerator;
-use Ihsan\UsernameGenerator\Generator\WesternUsernameGenerator;
-use Ihsan\UsernameGenerator\Repository\UsernameInterface;
-use Ihsan\UsernameGenerator\Repository\UsernameRepositoryInterface;
-use Ihsan\UsernameGenerator\Util\DateGenerator;
-use Ihsan\UsernameGenerator\Util\UniqueNumberGenerator;
+use KejawenLab\Library\PetrukUsername\Generator\BalinesePetrukUsername;
+use KejawenLab\Library\PetrukUsername\Generator\GenericPetrukUsername;
+use KejawenLab\Library\PetrukUsername\Generator\IslamicPetrukUsername;
+use KejawenLab\Library\PetrukUsername\Generator\ShortPetrukUsername;
+use KejawenLab\Library\PetrukUsername\Generator\WesternPetrukUsername;
+use KejawenLab\Library\PetrukUsername\Repository\UsernameInterface;
+use KejawenLab\Library\PetrukUsername\Repository\UsernameRepositoryInterface;
+use KejawenLab\Library\PetrukUsername\Util\DateGenerator;
+use KejawenLab\Library\PetrukUsername\Util\UniqueNumberGenerator;
 
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
@@ -74,7 +74,7 @@ class UsernameFactory
         $isShort = false;
 
         if ($characterLimit > strlen($fullName)) {
-            $shortGenerator = new ShortUsernameGenerator();
+            $shortGenerator = new ShortPetrukUsername();
             $characters = array_merge($characters, $shortGenerator->generate($fullName, $characterLimit));
 
             $isShort = true;
@@ -231,22 +231,22 @@ class UsernameFactory
      */
     private function doGenerate($fullName, $characterLimit, array $characters = array())
     {
-        $balineseGenerator = new BalineseUsernameGenerator();
+        $balineseGenerator = new BalinesePetrukUsername();
         if (-1 !== $balineseGenerator->isReservedName($fullName)) {
             $characters = array_merge($characters, $balineseGenerator->generate($fullName, $characterLimit));
         }
 
-        $islamicGenerator = new IslamicUsernameGenerator();
+        $islamicGenerator = new IslamicPetrukUsername();
         if (-1 !== $islamicGenerator->isReservedName($fullName)) {
             $characters = array_merge($characters, $islamicGenerator->generate($fullName, $characterLimit));
         }
 
-        $westernGenerator = new WesternUsernameGenerator();
+        $westernGenerator = new WesternPetrukUsername();
         if (-1 !== $westernGenerator->isReservedName($fullName)) {
             $characters = array_merge($characters, $westernGenerator->generate($fullName, $characterLimit));
         }
 
-        $genericGenerator = new GenericUsernameGenerator();
+        $genericGenerator = new GenericPetrukUsername();
         $characters = array_merge($characters, $genericGenerator->generate($fullName, $characterLimit));
 
         return $characters;

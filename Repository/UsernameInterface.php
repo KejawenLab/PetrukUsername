@@ -1,6 +1,6 @@
 <?php
 
-namespace Ihsan\UsernameGenerator\Repository;
+namespace KejawenLab\Library\PetrukUsername\Repository;
 
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>

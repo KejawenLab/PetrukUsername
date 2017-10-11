@@ -1,11 +1,11 @@
 <?php
 
-namespace Ihsan\UsernameGenerator\Generator;
+namespace KejawenLab\Library\PetrukUsername\Generator;
 
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-class GenericUsernameGenerator extends AbstractGenerator
+class GenericPetrukUsername extends AbstractGenerator
 {
     /**
      * @param string $fullName

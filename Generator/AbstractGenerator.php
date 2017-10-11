@@ -1,8 +1,8 @@
 <?php
 
-namespace Ihsan\UsernameGenerator\Generator;
+namespace KejawenLab\Library\PetrukUsername\Generator;
 
-use Ihsan\UsernameGenerator\Util\CharacterShifter;
+use KejawenLab\Library\PetrukUsername\Util\CharacterShifter;
 
 /**
  * @author Muhamad Surya Iksanudin <surya.iksanudin@bisnis.com>
