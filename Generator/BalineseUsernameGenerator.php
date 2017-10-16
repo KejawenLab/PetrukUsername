@@ -25,7 +25,7 @@ final class BalineseUsernameGenerator extends AbstractGenerator
      *
      * @return array
      */
-    public function generate($fullName, $limit = 8)
+    public function generate(string $fullName, int $limit = 8): array
     {
         $original = str_replace(' ', '', $fullName);
         if ($limit > strlen($original)) {
@@ -57,7 +57,7 @@ final class BalineseUsernameGenerator extends AbstractGenerator
      *
      * @return int
      */
-    public function isReservedName($fullName)
+    public function isReservedName(string $fullName): int
     {
         $temp = explode(' ', strtoupper($fullName));
         if (in_array($temp[0], array_keys($this->reservedNames))) {

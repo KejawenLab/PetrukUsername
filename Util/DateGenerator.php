@@ -5,14 +5,14 @@ namespace KejawenLab\Library\PetrukUsername\Util;
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-class DateGenerator
+final class DateGenerator
 {
     /**
-     * @param \DateTime $date
+     * @param \DateTimeInterface $date
      *
      * @return array
      */
-    public static function generate(\DateTime $date)
+    public static function generate(\DateTimeInterface $date): array
     {
         $list = array();
         $list[] = $date->format('ym');

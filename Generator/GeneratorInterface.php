@@ -13,5 +13,12 @@ interface GeneratorInterface
      *
      * @return array
      */
-    public function generate($fullName, $limit = 8);
+    public function generate(string $fullName, int $limit = 8): array;
+
+    /**
+     * @param string $fullName
+     *
+     * @return int
+     */
+    public function isReservedName(string $fullName): int;
 }

@@ -15,8 +15,18 @@ abstract class AbstractGenerator implements GeneratorInterface
      *
      * @return array
      */
-    protected function shift($fullName, $base)
+    protected function shift(string $fullName, string $base): array
     {
         return CharacterShifter::shift($fullName, $base);
+    }
+
+    /**
+     * @param string $fullName
+     *
+     * @return int
+     */
+    public function isReservedName(string $fullName): int
+    {
+        return -1;
     }
 }

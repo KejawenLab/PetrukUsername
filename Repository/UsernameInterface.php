@@ -8,37 +8,37 @@ namespace KejawenLab\Library\PetrukUsername\Repository;
 interface UsernameInterface
 {
     /**
-     * @return int
+     * @return string
      */
-    public function getId();
+    public function getId(): string;
 
     /**
      * @return string
      */
-    public function getFullName();
+    public function getFullName(): string;
 
     /**
      * @param string $fullName
      */
-    public function setFullName($fullName);
+    public function setFullName(string $fullName): void;
 
     /**
      * @return string
      */
-    public function getUsername();
+    public function getUsername(): string;
 
     /**
      * @param string $username
      */
-    public function setUsername($username);
+    public function setUsername(string $username): void;
 
     /**
-     * @return string
+     * @return \DateTimeInterface
      */
-    public function getBirthDay();
+    public function getDateOfBirth(): \DateTimeInterface;
 
     /**
-     * @param \DateTime $date
+     * @param \DateTimeInterface $date
      */
-    public function setBirthDay(\DateTime $date);
+    public function setDateOfBirth(\DateTimeInterface $date);
 }

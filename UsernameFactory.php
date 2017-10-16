@@ -2,11 +2,11 @@
 
 namespace KejawenLab\Library\PetrukUsername;
 
-use KejawenLab\Library\PetrukUsername\Generator\BalinesePetrukUsername;
-use KejawenLab\Library\PetrukUsername\Generator\GenericPetrukUsername;
-use KejawenLab\Library\PetrukUsername\Generator\IslamicPetrukUsername;
-use KejawenLab\Library\PetrukUsername\Generator\ShortPetrukUsername;
-use KejawenLab\Library\PetrukUsername\Generator\WesternPetrukUsername;
+use KejawenLab\Library\PetrukUsername\Generator\BalineseUsernameGenerator;
+use KejawenLab\Library\PetrukUsername\Generator\GenericUsernameGenerator;
+use KejawenLab\Library\PetrukUsername\Generator\IslamicUsernameGenerator;
+use KejawenLab\Library\PetrukUsername\Generator\ShortUsernameGenerator;
+use KejawenLab\Library\PetrukUsername\Generator\WesternUsernameGenerator;
 use KejawenLab\Library\PetrukUsername\Repository\UsernameInterface;
 use KejawenLab\Library\PetrukUsername\Repository\UsernameRepositoryInterface;
 use KejawenLab\Library\PetrukUsername\Util\DateGenerator;
@@ -52,7 +52,7 @@ class UsernameFactory
      * @param string                      $usernameClass
      * @param bool                        $autoSave
      */
-    public function __construct(UsernameRepositoryInterface $usernameRepository, $usernameClass, $autoSave = false)
+    public function __construct(UsernameRepositoryInterface $usernameRepository, string $usernameClass, bool $autoSave = false)
     {
         $this->repository = $usernameRepository;
         $this->class = $usernameClass;
@@ -60,21 +60,21 @@ class UsernameFactory
     }
 
     /**
-     * @param string    $fullName
-     * @param \DateTime $birthday
-     * @param int       $characterLimit
-     * @param int       $maxUsernamePerPrefix
+     * @param string             $fullName
+     * @param \DateTimeInterface $birthday
+     * @param int                $characterLimit
+     * @param int                $maxUsernamePerPrefix
      *
      * @return null|string
      */
-    public function generate($fullName, \DateTime $birthday, $characterLimit = 8, $maxUsernamePerPrefix = 1000)
+    public function generate(string $fullName, \DateTimeInterface $birthday, int $characterLimit = 8, int $maxUsernamePerPrefix = 1000)
     {
         $fullName = strtoupper($fullName);
         $characters = array();
         $isShort = false;
 
         if ($characterLimit > strlen($fullName)) {
-            $shortGenerator = new ShortPetrukUsername();
+            $shortGenerator = new ShortUsernameGenerator();
             $characters = array_merge($characters, $shortGenerator->generate($fullName, $characterLimit));
 
             $isShort = true;
@@ -150,13 +150,13 @@ class UsernameFactory
     }
 
     /**
-     * @param \DateTime $birthday
-     * @param array$characters
-     * @param int $maxUsernamePerPrefix
+     * @param \DateTimeInterface $birthday
+     * @param array              $characters
+     * @param int                $maxUsernamePerPrefix
      *
      * @return string
      */
-    private function getUsername(\DateTime $birthday, $characters, $maxUsernamePerPrefix)
+    private function getUsername(\DateTimeInterface $birthday, array $characters, int $maxUsernamePerPrefix)
     {
         $dates = DateGenerator::generate($birthday);
 
@@ -207,16 +207,16 @@ class UsernameFactory
     }
 
     /**
-     * @param string    $fullName
-     * @param \DateTime $birthday
-     * @param string    $username
+     * @param string             $fullName
+     * @param \DateTimeInterface $birthday
+     * @param string             $username
      */
-    private function save(\DateTime $birthday, $fullName, $username)
+    private function save(\DateTimeInterface $birthday, string $fullName, string $username)
     {
         /** @var UsernameInterface $user */
         $user = new $this->class();
         $user->setFullName($fullName);
-        $user->setBirthDay($birthday);
+        $user->setDateOfBirth($birthday);
         $user->setUsername($username);
 
         $this->repository->save($user);
@@ -229,24 +229,24 @@ class UsernameFactory
      *
      * @return array
      */
-    private function doGenerate($fullName, $characterLimit, array $characters = array())
+    private function doGenerate(string $fullName, int $characterLimit, array $characters = [])
     {
-        $balineseGenerator = new BalinesePetrukUsername();
+        $balineseGenerator = new BalineseUsernameGenerator();
         if (-1 !== $balineseGenerator->isReservedName($fullName)) {
             $characters = array_merge($characters, $balineseGenerator->generate($fullName, $characterLimit));
         }
 
-        $islamicGenerator = new IslamicPetrukUsername();
+        $islamicGenerator = new IslamicUsernameGenerator();
         if (-1 !== $islamicGenerator->isReservedName($fullName)) {
             $characters = array_merge($characters, $islamicGenerator->generate($fullName, $characterLimit));
         }
 
-        $westernGenerator = new WesternPetrukUsername();
+        $westernGenerator = new WesternUsernameGenerator();
         if (-1 !== $westernGenerator->isReservedName($fullName)) {
             $characters = array_merge($characters, $westernGenerator->generate($fullName, $characterLimit));
         }
 
-        $genericGenerator = new GenericPetrukUsername();
+        $genericGenerator = new GenericUsernameGenerator();
         $characters = array_merge($characters, $genericGenerator->generate($fullName, $characterLimit));
 
         return $characters;

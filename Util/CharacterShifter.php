@@ -14,7 +14,7 @@ class CharacterShifter
      *
      * @return array
      */
-    public static function shift($username, $base, $limit = 8)
+    public static function shift(string $username, string $base, int $limit = 8): array
     {
         if ($username === $base && $limit < strlen($base)) {
             $base = substr($base, 0, $limit);
@@ -37,7 +37,7 @@ class CharacterShifter
      *
      * @return string
      */
-    public static function replace($username, $base)
+    public static function replace(string $username, string $base): string
     {
         return preg_replace(sprintf('/%s/', $base), '', $username, 1);
     }

@@ -12,15 +12,17 @@ interface UsernameRepositoryInterface
      *
      * @return bool
      */
-    public function isExist($username);
+    public function isExist(string $username): bool;
 
     /**
-     * @param int $characters
+     * @param string $characters
+     *
+     * @return int
      */
-    public function countUsage($characters);
+    public function countUsage(string $characters): int;
 
     /**
      * @param UsernameInterface $username
      */
-    public function save(UsernameInterface $username);
+    public function save(UsernameInterface $username): void;
 }
